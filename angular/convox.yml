@@ -1,4 +1,4 @@
 services:
   front:
-    image: heronrs/angular-test
+    build: .
     port: 80
