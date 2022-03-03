@@ -1,0 +1,4 @@
+services:
+  app:
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp
+    port: 80
