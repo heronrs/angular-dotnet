@@ -1,33 +1,44 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {TodoComponent} from './todo/todo.component';
+import {TaskAddComponent} from "./task-add/task-add.component";
+import {TaskViewComponent} from "./task-view/task-view.component";
+import {TaskEditComponent} from "./task-edit/task-edit.component";
 
 const routes: Routes = [
   {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+    // contains the whole todo list
+    path: 'tasks',
+    component: TodoComponent
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    // display the form to add a new task
+    path: 'tasks/add',
+    component: TaskAddComponent,
+    data: {title: 'Add new task'}
   },
   {
-    path: 'editor',
-    loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule)
+    // display the form to add a new task
+    path: 'tasks/:id',
+    component: TaskViewComponent,
+    data: {title: 'Task to do'}
   },
   {
-    path: 'article',
-    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
-  }
+    // display the form to add a new task
+    path: 'tasks/:id/edit',
+    component: TaskEditComponent,
+    data: {title: 'Task edition'}
+  },
+  // Always go on /tasks path
+  { path: '',
+    redirectTo: '/tasks',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    // preload all modules; optionally we could
-    // implement a custom preloading strategy for just some
-    // of the modules (PRs welcome 😉)
-    preloadingStrategy: PreloadAllModules,
-    relativeLinkResolution: 'legacy'
-})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
